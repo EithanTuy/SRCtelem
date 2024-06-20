@@ -5,6 +5,9 @@
 <!--UNFINISHED-->
 <!--UNFINISHED-->
 <!--UNFINISHED-->
+
+<!--UNFINISHED-->
+<!--UNFINISHED-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -169,6 +172,18 @@
     <div id="easter-egg">Eithan Tuyilingire</div>
 
     <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('http://arduino_ip_address/data'); // Replace with your Arduino's IP address and endpoint
+                const data = await response.text();
+                document.getElementById('data').innerText = data;
+                document.getElementById('data').style.color = '#007BFF';
+            } catch (error) {
+                document.getElementById('data').innerText = 'Error fetching data';
+                document.getElementById('data').style.color = 'red';
+            }
+        }
+
         function checkPassword() {
             var passwordInput = document.getElementById('password');
             if (passwordInput.value === '12312') {
@@ -176,7 +191,7 @@
                 setTimeout(function() {
                     document.body.classList.remove('flash-green');
                     document.getElementById('overlay').classList.add('hidden');
-                    fetchData();
+                    fetchData(); // Call fetchData function after successful password entry
                 }, 1000);
             } else {
                 alert('Incorrect password');
@@ -184,18 +199,6 @@
                 setTimeout(function() {
                     passwordInput.classList.remove('wrong-password');
                 }, 500);
-            }
-        }
-
-        async function fetchData() {
-            try {
-                const response = await fetch('http://your_arduino_ip/data'); // Change this to your Arduino's IP and endpoint
-                const data = await response.text();
-                document.getElementById('data').innerText = data;
-                document.getElementById('data').style.color = '#007BFF';
-            } catch (error) {
-                document.getElementById('data').innerText = 'Error fetching data';
-                document.getElementById('data').style.color = 'red';
             }
         }
     </script>
