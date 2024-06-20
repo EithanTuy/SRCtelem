@@ -1,13 +1,19 @@
-<!--UNFINISHED-->
-<!--UNFINISHED-->
-<!--UNFINISHED-->
-<!--UNFINISHED-->
-<!--UNFINISHED-->
-<!--UNFINISHED-->
-<!--UNFINISHED-->
-
-<!--UNFINISHED-->
-<!--UNFINISHED-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
+<!--UNFINISHED!!!!!!!!!!!!-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -186,7 +192,8 @@
 
         function checkPassword() {
             var passwordInput = document.getElementById('password');
-            if (passwordInput.value === '12312') {
+            var password = getPassword(); // Get the password dynamically
+            if (passwordInput.value === password) {
                 document.body.classList.add('flash-green');
                 setTimeout(function() {
                     document.body.classList.remove('flash-green');
@@ -200,6 +207,11 @@
                     passwordInput.classList.remove('wrong-password');
                 }, 500);
             }
+        }
+
+        function getPassword() {
+            // Implement logic to retrieve or generate the password dynamically
+            return '12312'; // Example, replace with your logic to fetch the password
         }
     </script>
 </body>
