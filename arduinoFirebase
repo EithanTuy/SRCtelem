@@ -1,0 +1,43 @@
+#include <ESP8266WiFi.h>
+#include <FirebaseArduino.h>  // Firebase Arduino library
+#include <Adafruit_Sensor.h>
+#include <Adafruit_ADXL345_U.h>
+
+// Firebase credentials and database URL
+#define FIREBASE_HOST "your-project-id.firebaseio.com"
+#define FIREBASE_AUTH "your-firebase-auth-token"
+
+// WiFi credentials
+const char* ssid = "YourWiFiSSID";
+const char* password = "YourWiFiPassword";
+
+Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(12345);
+
+void setup() {
+    Serial.begin(9600);
+    delay(1000);
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(1000);
+        Serial.println("Connecting to WiFi...");
+    }
+    Serial.println("Connected to WiFi");
+
+    Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+    accel.begin();
+}
+
+void loop() {
+    sensors_event_t event;
+    accel.getEvent(&event);
+    float ax = event.acceleration.x;
+    float ay = event.acceleration.y;
+    float az = event.acceleration.z;
+
+    // Push data to Firebase Realtime Database
+    Firebase.pushFloat("/accelerometer/x", ax);
+    Firebase.pushFloat("/accelerometer/y", ay);
+    Firebase.pushFloat("/accelerometer/z", az);
+
+    delay(1000); // Adjust delay based on your needs
+}
