@@ -80,7 +80,6 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            animation: slideUp 2s ease-out;
         }
 
         input:focus, button:focus {
@@ -133,7 +132,6 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
-            animation: slideUp 1.5s ease-out;
         }
 
         input.wrong-password {
@@ -158,6 +156,13 @@
         #overlay.hidden ~ #easter-egg {
             display: block;
         }
+
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 10px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
     </style>
 </head>
 <body>
@@ -171,6 +176,7 @@
             <h2>Enter Password</h2>
             <input type="password" id="password" placeholder="Enter Password">
             <button onclick="checkPassword()">Submit</button>
+            <div id="error-message" class="error-message" style="display: none;">Incorrect password</div>
         </div>
     </div>
 
@@ -192,7 +198,9 @@
 
         function checkPassword() {
             var passwordInput = document.getElementById('password');
+            var errorMessage = document.getElementById('error-message');
             var password = getPassword(); // Get the password dynamically
+
             if (passwordInput.value === password) {
                 document.body.classList.add('flash-green');
                 setTimeout(function() {
@@ -201,11 +209,13 @@
                     fetchData(); // Call fetchData function after successful password entry
                 }, 1000);
             } else {
-                alert('Incorrect password');
+                errorMessage.style.display = 'block';
                 passwordInput.classList.add('wrong-password');
                 setTimeout(function() {
                     passwordInput.classList.remove('wrong-password');
-                }, 500);
+                    errorMessage.style.display = 'none';
+                    passwordInput.value = ''; // Clear the input field
+                }, 1500);
             }
         }
 
