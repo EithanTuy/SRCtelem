@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Telemetry</title>
+    <style>
+        /* Your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Time display styles */
+        #time {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        /* Rest of your styles */
+        /* Adjust styles as per your design */
+        /* Ensure your CSS for container, data, etc., is properly defined */
+        #container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+            margin-top: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #data {
+            font-size: 2em;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* Additional styles for overlay, input, button, etc. */
+        /* Include your CSS for overlays, input, buttons, animations, etc. */
+    </style>
+</head>
+<body>
+    <div id="time"></div> <!-- Time display will be placed here -->
+
+    <div id="container">
+        <h1>Car Telemetry</h1>
+        <div id="data">Offline</div>
+    </div>
+
+    <!-- Other HTML elements as per your design -->
+
+    <script>
+        // Function to update the current time
+        function updateTime() {
+            var now = new Date();
+            var hours = now.getHours().toString().padStart(2, '0');
+            var minutes = now.getMinutes().toString().padStart(2, '0');
+            var seconds = now.getSeconds().toString().padStart(2, '0');
+            var timeString = hours + ':' + minutes + ':' + seconds;
+
+            document.getElementById('time').textContent = timeString;
+        }
+
+        // Update time every second
+        setInterval(updateTime, 1000);
+
+        // Your existing JavaScript code for handling data display, password, etc.
+        // Ensure your existing scripts for fetching data and functionality are included here
+
+        // Example fetchData function
+        async function fetchData() {
+            try {
+                const response = await fetch('http://arduino_ip_address/data');
+                const data = await response.text();
+                document.getElementById('data').innerText = data;
+                document.getElementById('data').style.color = '#007BFF';
+            } catch (error) {
+                document.getElementById('data').innerText = 'Offline';
+                document.getElementById('data').style.color = 'red';
+            }
+        }
+
+        // Initial fetch when page loads
+        fetchData();
+    </script>
+</body>
+</html>
